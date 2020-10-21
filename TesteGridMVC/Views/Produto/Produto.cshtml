@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "Produto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using X.PagedList.Mvc.Core
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Common;
+@model ProdutoPaging
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/3.4.0/css/bootstrap.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<h1>Produtos</h1>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Dt. Inclusão</th>
+                <th>Dt. Alteração</th>
+                <th>Vl. Compra</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var prod in Model.Produtos)
+            {
+            <tr>
+                <td>@prod.Id</td>
+                <td>@prod.Nome</td>
+                <td>@prod.Descricao</td>
+                <td>@prod.DataInclusao.ToString("dd/MM/yyyy")</td>
+                <td>@prod.DataAlteracao.ToString("dd/MM/yyyy")</td>
+                <td>@prod.ValorCompra</td>
+            </tr>
+            }
+            <tr>
+                <td colspan="3">
+                    @Html.PagedListPager((IPagedList)Model.Produtos, page => Url.Action("Produto", new { page=page }),
+                    PagedListRenderOptions.OnlyShowFivePagesAtATime)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
