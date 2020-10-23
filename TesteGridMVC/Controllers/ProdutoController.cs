@@ -28,10 +28,10 @@ namespace TesteGridMVC.Controllers
                 page = 1;
 
             var pageIndex = (page ?? 1) - 1;
-            var pageSize = 5;
+            var pageSize = 10;
 
             var total = repository.ObterQtdProdutos();
-            var produtos = repository.ObterProdutosPaginado(pageIndex, pageSize).ToList();
+            var produtos = repository.ObterProdutosPaginado(page, pageSize).ToList();
             var produtosPaginados = new StaticPagedList<Produto>(produtos, pageIndex + 1, pageSize, total);
 
             produto.pageSize = pageSize;

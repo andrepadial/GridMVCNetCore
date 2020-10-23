@@ -6,6 +6,7 @@
 
 @using X.PagedList.Mvc.Core
 @using X.PagedList;
+@using System.Globalization;
 @using X.PagedList.Mvc.Core.Common;
 @model ProdutoPaging
 
@@ -25,26 +26,58 @@
                 <th>Dt. Inclusão</th>
                 <th>Dt. Alteração</th>
                 <th>Vl. Compra</th>
+                <th>Editar</th>
             </tr>
         </thead>
         <tbody>
-            @foreach(var prod in Model.Produtos)
+            @foreach (var prod in Model.Produtos)
             {
-            <tr>
-                <td>@prod.Id</td>
-                <td>@prod.Nome</td>
-                <td>@prod.Descricao</td>
-                <td>@prod.DataInclusao.ToString("dd/MM/yyyy")</td>
-                <td>@prod.DataAlteracao.ToString("dd/MM/yyyy")</td>
-                <td>@prod.ValorCompra</td>
-            </tr>
+                <tr>
+                    <td>@prod.Id</td>
+                    <td>@prod.Nome</td>
+                    <td>@prod.Descricao</td>
+                    <td>@prod.DataInclusao.ToString("dd/MM/yyyy")</td>
+                    <td>@prod.DataAlteracao.ToString("dd/MM/yyyy")</td>
+                    <td>@prod.ValorCompra.ToString("C", CultureInfo.CurrentCulture)</td>
+                    <td><img src="~/images/banner1.svg"></td>
+                </tr>
             }
+            <tr>
+                <td colspan="3">
+                    @Html.PagedListPager((IPagedList)Model.Produtos, page => Url.Action("Produto", new { page=page }),
+                    PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    @Html.PagedListPager((IPagedList)Model.Produtos, page => Url.Action("Produto", new { page=page }),
+                    PagedListRenderOptions.MinimalWithItemCountText)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    @Html.PagedListPager((IPagedList)Model.Produtos, page => Url.Action("Produto", new { page=page }),
+                    PagedListRenderOptions.MinimalWithPageCountText)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    @Html.PagedListPager((IPagedList)Model.Produtos, page => Url.Action("Produto", new { page=page }),
+                    PagedListRenderOptions.Minimal)
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    @Html.PagedListPager((IPagedList)Model.Produtos, page => Url.Action("Produto", new { page=page }),
+                    PagedListRenderOptions.TwitterBootstrapPager)
+                </td>
+            </tr>
             <tr>
                 <td colspan="3">
                     @Html.PagedListPager((IPagedList)Model.Produtos, page => Url.Action("Produto", new { page=page }),
                     PagedListRenderOptions.OnlyShowFivePagesAtATime)
                 </td>
-            </tr>
+            </tr>            
         </tbody>
     </table>
 </div>
